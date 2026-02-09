@@ -1,0 +1,54 @@
+# HeDA Pipeline 默认配置文件
+# ================================
+
+# LLM 配置 (DashScope Qwen3-max)
+llm:
+  api_key: "YOUR_API_KEY_HERE"
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  model: "qwen3-max"
+  max_tokens: 8000
+  temperature: 0.7
+  max_retries: 3
+
+# 嵌入模型配置 (DashScope text-embedding-v4)
+embedding:
+  api_key: "YOUR_API_KEY_HERE"
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  model: "text-embedding-v4"
+  dimension: 1024
+
+# Neo4j 图数据库配置
+neo4j:
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "YOUR_NEO4J_PASSWORD_HERE"
+  batch_size: 2000
+
+# 文件路径配置
+paths:
+  paper_file: "paper.txt"
+  json_dir: "json/"
+  enhanced_json_dir: "enhanced_json/"
+  nodes_file: "all_nodes.csv"
+  mapping_file: "mapping.csv"
+  adjacency_file: "adjacency.json"
+  reports_dir: "reports/"
+  logs_dir: "logs/"
+
+# 处理参数
+processing:
+  max_workers: 4
+  batch_size: 10
+  similarity_threshold: 0.85
+  sentence_model: "all-MiniLM-L6-v2"
+
+# 推理参数
+reasoning:
+  max_hops: 4
+  novelty_weights:
+    alpha: 0.5   # LF - 路径长度因子
+    beta: 0.3    # CLC - 跨层复杂度
+    gamma: 0.2   # IP - 信息量
+  qa_sample_limit: 50
+  mining_depth: 5
+
