@@ -1,0 +1,16 @@
+# API keys
+**/api_keys.yaml
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (too large)
+*.npy
+*.faiss
+
+# Logs
+*.log

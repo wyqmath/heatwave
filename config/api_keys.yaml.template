@@ -1,0 +1,31 @@
+primary:
+  api_key: "your-api-key-here"
+  base_url: "your-base-url-here"
+  model: "claude-sonnet-4-5"
+
+doc2x:
+  api_key: "your-api-key-here"
+  base_url: "your-base-url-here"
+
+embedding:
+  api_key: "your-api-key-here"
+  base_url: "your-base-url-here"
+  model: "text-embedding-v4"
+
+eval_models:
+  qwen-plus:
+    api_key: "your-api-key-here"
+    base_url: "your-base-url-here"
+    model: "qwen-plus"
+  qwen3-max:
+    api_key: "your-api-key-here"
+    base_url: "your-base-url-here"
+    model: "qwen3-max"
+  gpt-5.4:
+    api_key: "your-api-key-here"
+    base_url: "your-base-url-here"
+    model: "gpt-5.4"
+  claude-sonnet-4-5:
+    api_key: "your-api-key-here"
+    base_url: "your-base-url-here"
+    model: "claude-sonnet-4-5"

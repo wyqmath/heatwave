@@ -1,54 +1,50 @@
-# HeDA Pipeline 默认配置文件
-# ================================
+data_processing:
+  input_file: "../data/raw/paper.txt"
+  kg_output_dir: "../data/processed/kg/"
+  holdout_output_dir: "../data/processed/holdout/"
+  batch_size: 50
+  max_workers: 15
 
-# LLM 配置 (DashScope Qwen3-max)
+knowledge_graph:
+  json_dir: "../data/processed/kg/"
+
+node_grouping:
+  similarity_threshold: 0.2
+  batch_size: 500
+  max_workers: 30
+  use_gpu_index: false
+  search_k: 500
+  search_batch_size: 1000
+  ivf_nprobe: 50
+  min_group_size: 2
+  max_groups_display: -1
+
 llm:
-  api_key: "YOUR_API_KEY_HERE"
-  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-  model: "qwen3-max"
-  max_tokens: 8000
-  temperature: 0.7
+  max_tokens: 8192
+  temperature: 0.1
   max_retries: 3
+  timeout: 120
+  use_structured_output: true
+  structured_output_stages: ["relation_extraction", "qa_generation", "node_mapping", "evaluation"]
+  requests_per_minute: 1800
+  concurrent_requests: 10
 
-# 嵌入模型配置 (DashScope text-embedding-v4)
-embedding:
-  api_key: "YOUR_API_KEY_HERE"
-  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-  model: "text-embedding-v4"
-  dimension: 1024
+node_recommender:
+  embedding_model: "text-embedding-v4"
+  embedding_dimension: 1024
+  top_k: 5
+  similarity_threshold: 0.3
+  cache_embeddings: true
+  embeddings_file: "embeddings.npy"
+  faiss_index_file: "embeddings.npy.faiss"
 
-# Neo4j 图数据库配置
-neo4j:
-  uri: "bolt://localhost:7687"
-  user: "neo4j"
-  password: "YOUR_NEO4J_PASSWORD_HERE"
-  batch_size: 2000
+compute:
+  embedding_batch_size: 10
 
-# 文件路径配置
-paths:
-  paper_file: "paper.txt"
-  json_dir: "json/"
-  enhanced_json_dir: "enhanced_json/"
-  nodes_file: "all_nodes.csv"
-  mapping_file: "mapping.csv"
-  adjacency_file: "adjacency.json"
-  reports_dir: "reports/"
-  logs_dir: "logs/"
+qa_engine:
+  nodes_csv_path: "all_nodes.csv"
 
-# 处理参数
-processing:
-  max_workers: 4
-  batch_size: 10
-  similarity_threshold: 0.85
-  sentence_model: "all-MiniLM-L6-v2"
-
-# 推理参数
-reasoning:
-  max_hops: 4
-  novelty_weights:
-    alpha: 0.5   # LF - 路径长度因子
-    beta: 0.3    # CLC - 跨层复杂度
-    gamma: 0.2   # IP - 信息量
-  qa_sample_limit: 50
-  mining_depth: 5
-
+files:
+  output_relation_nodes: "output_relation_nodes.csv"
+  cleaned_nodes: "cleaned_nodes.csv"
+  mapping_csv: "mapping.csv"
